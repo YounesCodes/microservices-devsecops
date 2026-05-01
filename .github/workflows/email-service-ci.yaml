@@ -7,7 +7,7 @@ on:
       - '.github/workflows/email-service-ci.yaml'
 
 jobs:
-  build:
+  build_and_push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
