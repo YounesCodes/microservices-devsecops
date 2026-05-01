@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          directory: src/emailservice
     
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/ms-email-service:latest
