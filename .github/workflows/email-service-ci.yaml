@@ -1,0 +1,22 @@
+name: Email Service Pipeline
+
+on:
+  push:
+    paths:
+      - 'src/emailservice/**'
+      - '.github/workflows/email-service-ci.yaml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+    
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/ms-email-service:latest
+
+      - name: Log in to Docker Hub
+        run:  echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      
+      - name: Push the image
+        run : docker push ${{ secrets.DOCKER_USERNAME }}/ms-email-service:latest
